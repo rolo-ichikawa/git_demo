@@ -1,0 +1,546 @@
+@charset "utf-8";
+
+/* セレクタ
+-----------------------------------------------------
+
+E F　（子孫要素に適用）
+E > F　（子要素にのみ適用）
+E + F　（隣接している要素に適用）
+E ~ F　（後にある要素に適用【CSS3】）
+
+【擬似要素・擬似クラス】
+:first-letter （最初に現れる文字にだけ適用）
+:first-line　（最初の行にだけ適用）
+:first-child　（最初に現れる要素にだけ適用）
+:nth-of-type(n)　（n番目に現れる要素に適用【CSS3】）
+:nth-child(n)　･･･　n番目の要素に適用
+:nth-child(odd)　･･･　奇数番目の要素に適用
+:nth-child(2n+1)　･･･　奇数番目の要素に適用
+:nth-child(even)　･･･　偶数番目の要素に適用
+:nth-child(2n)　･･･　偶数番目の要素に適用
+:nth-child(3n)　･･･　3,6,9,12…番目の要素に適用
+:nth-child(3n+1)　･･･　1,4,7,10…番目の要素に適用
+:nth-last-of-type(n)　（後ろからn番目に現れる要素に適用【CSS3】）
+:not　（該当しない場合に適用【CSS3】）
+:hover　（オンマウス時に適用）
+:checked　（チェックされているユーザーインターフェース要素に適用【CSS3】）
+
+【属性セレクタ】
+E[foo]　（特定の属性を持つ要素に適用）
+E[foo="bar"]　（特定の属性(値)を持つ要素に適用する）
+E[foo^="bar"]　（属性の値が指定した文字で始まる場合に適用する【CSS3】）
+E[foo$="bar"]　（属性の値が指定した文字で終わる場合に適用する【CSS3】）
+E[foo*="bar"]　（属性の値が指定した文字を含む場合に適用する【CSS3】）
+
+【CSS3まとめ】
+E[foo^="bar"]	foo属性の値がbarで始まっているE要素
+E[foo$="bar"] 	foo属性の値がbarで終わっているE要素
+E[foo*="bar"] 	foo属性の値にbarを含むE要素
+E:root 	文章内のルート要素であるEという要素
+E:nth-child(n) 	親要素のn番目の子要素
+E:nth-last-child(n) 	親要素の後から数えてn番目の子要素
+E:nth-of-type(n) 	n番目にあるE要素
+E:nth-last-of-type(n) 	最後から数えてn番目にあるE要素
+E:last-child 	最後にある子要素
+E:first-of-type 	兄弟関係にあるE要素で最初のもの
+E:last-of-type 	兄弟関係にあるE要素で最後のもの
+E:only-child 	唯一の子要素であるE要素
+E:only-of-type 	子要素の中で唯一のE要素
+E:empty 	子要素を持たないE要素
+E:target 	参照URIの目標となっているE要素
+E:enabled	有効になっている（:enabled）E要素
+E:disabled 	無効になっている（:disabled）E要素
+E:checked 	ラジオボタンやチェックボックスがチェックされた状態のときにE要素
+E:not(s) 	sでないセレクタを持つE要素
+E ~ F 	E要素の後にあるF要素
+
+参考：
+http://weboook.blog22.fc2.com/blog-entry-268.html
+http://weboook.blog22.fc2.com/blog-entry-287.html
+
+*/
+
+
+/* mix-blend-mode
+http://www.webcreatorbox.com/tech/css-blend-mode/
+*/
+mix-blend-mode: normal;
+mix-blend-mode: multiply;　（乗算）
+mix-blend-mode: screen;　（スクリーン）
+mix-blend-mode: overlay;　（オーバーレイ）
+mix-blend-mode: darken;　（暗く）
+mix-blend-mode: lighten;　（明るく）
+mix-blend-mode: color-dodge;　（覆い焼きカラー）
+mix-blend-mode: color-burn;　（焼き込みカラー）
+mix-blend-mode: hard-light;　（ハードライト）
+mix-blend-mode: soft-light;　（ソフトライト）
+mix-blend-mode: difference;　（差の絶対値）
+mix-blend-mode: exclusion;　（除外）
+mix-blend-mode: hue;　（色相）
+mix-blend-mode: saturation;　（彩度）
+mix-blend-mode: color;　（カラー）
+mix-blend-mode: luminosity;　（輝度）
+/* グローバル値 */
+mix-blend-mode: initial;
+mix-blend-mode: inherit;
+mix-blend-mode: unset;
+
+
+/* スマホ表示時の文字自動調節OFF */
+html,body {
+	-webkit-text-size-adjust: 100%;
+	-webkit-text-stroke-width:0.1px;
+}
+
+
+/* clearfix */
+.clearfix:after {
+	height: 0;
+	clear: both;
+	content: ".";
+	display: block;
+	font-size: 0;
+	visibility: hidden;
+	text-decoration:none;
+}
+
+
+/* テキストの自動カーニング */
+.selector {
+	font-feature-settings : "palt";
+}
+
+
+/* 半透過アニメーション */
+.alpha{
+	transition:opacity 0.3s ease-out 0s;
+}
+.alpha:hover{
+	opacity:0.8 !important;
+	filter: alpha(opacity=80);
+	-ms-filter: "alpha( opacity=80 )";
+	cursor:pointer;
+}
+
+
+/* リンクの種類でアイコン変える */
+/* 外部リンク */
+a[href^="http://"]{
+	background: url() no-repeat;
+}
+/* メール */
+a[href^="mailto:"]{
+	background: url() no-repeat;
+}
+/* PDF */
+a[href$=".pdf"]{
+	background: url() no-repeat;
+}
+
+
+/* スクロールでその位置まで来たら親要素の端まで fixed する
+https://q-az.net/position-sticky/
+*/
+.h2-sticky {
+	position: -webkit-sticky; /* Safari */
+	position: sticky;
+	top: 0;
+}
+
+
+/* グラデーションテキスト */
+h1 {
+	font-size: 40px;
+	background: -webkit-linear-gradient(#cff, #39f);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+/* ボックスシャドウ */
+p {
+	box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4) inset;
+}
+p {
+	box-shadow: 水平方向の距離 垂直方向の距離 ぼかし距離 広がり距離 影の色 inset;
+}
+
+filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.6));
+
+/* 角丸 */
+div{
+	border-radius: 13px;
+	-moz-border-radius: 13px;
+	-webkit-border-radius: 13px;
+	-o-border-radius: 13px;
+	-ms-border-radius: 13px;
+}
+
+/* 蛍光ペンで線を引いたような効果 */
+strong {
+	background: linear-gradient(transparent 30%, #fbd 30%);
+	background:linear-gradient(to bottom, #d95992 0, #d95992 35%, #efad90 100%);
+	background: linear-gradient(開始位置と角度, 開始色, 途中色, 終了色);
+
+}
+
+
+/* テキストを選択する時の色を変更 */
+::selection {
+	background-color: #cf9;
+	color: #000;
+}
+/* Firefox */
+::-moz-selection {
+	background-color: #cf9;
+	color: #000;
+}
+
+
+/* 長いテキストを「…」で省略する */
+ul {
+	list-style-position: inside;
+}
+li {
+	width: 320px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+/* iOSのSafari selectリセット */
+	select {
+	-webkit-appearance: button;
+	appearance: button;
+	}
+
+/* ラジオボタンとチェックボックスを装飾する */
+
+[type="checkbox"]:checked,
+[type="checkbox"]:not(:checked) {
+		position: absolute;
+		left: -9999px;
+}
+[type="checkbox"]:checked + label,
+[type="checkbox"]:not(:checked) + label
+{
+		position: relative;
+		padding-left: 28px;
+		cursor: pointer;
+		line-height: 20px;
+		display: inline-block;
+		color: #666;
+}
+[type="checkbox"]:checked + label:before,
+[type="checkbox"]:not(:checked) + label:before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 18px;
+		height: 18px;
+		border: 1px solid #ddd;
+		background: #fff;
+}
+[type="checkbox"]:checked + label:after,
+[type="checkbox"]:not(:checked) + label:after {
+		content: '';
+		width: 8px;
+		height: 8px;
+		background: #00a69c;
+		position: absolute;
+		top: 6px;
+		left: 6px;
+		-webkit-transition: all 0.2s ease;
+		transition: all 0.2s ease;
+}
+[type="checkbox"]:not(:checked) + label:after {
+		opacity: 0;
+		-webkit-transform: scale(0);
+		transform: scale(0);
+}
+[type="checkbox"]:checked + label:after {
+		opacity: 1;
+		-webkit-transform: scale(1);
+		transform: scale(1);
+}
+
+
+
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+		position: absolute;
+		left: -9999px;
+}
+[type="radio"]:checked + label,
+[type="radio"]:not(:checked) + label
+{
+		position: relative;
+		padding-left: 28px;
+		cursor: pointer;
+		line-height: 20px;
+		display: inline-block;
+		color: #666;
+}
+[type="radio"]:checked + label:before,
+[type="radio"]:not(:checked) + label:before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 18px;
+		height: 18px;
+		border: 1px solid #ddd;
+		border-radius: 100%;
+		background: #fff;
+}
+[type="radio"]:checked + label:after,
+[type="radio"]:not(:checked) + label:after {
+		content: '';
+		width: 12px;
+		height: 12px;
+		background: #F87DA9;
+		position: absolute;
+		top: 4px;
+		left: 4px;
+		border-radius: 100%;
+		-webkit-transition: all 0.2s ease;
+		transition: all 0.2s ease;
+}
+[type="radio"]:not(:checked) + label:after {
+		opacity: 0;
+		-webkit-transform: scale(0);
+		transform: scale(0);
+}
+[type="radio"]:checked + label:after {
+		opacity: 1;
+		-webkit-transform: scale(1);
+		transform: scale(1);
+}
+
+/*スクロールバー全体*/
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/*スクロールバーの軌道*/
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, .1);
+}
+
+/*スクロールバーの動く部分*/
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, .5);
+  border-radius: 10px;
+  box-shadow:0 0 0 1px rgba(255, 255, 255, .3);
+}
+
+/* レスポンシブイメージ */
+<img srcset="@1x.png 1x,
+             @2x.png 2x,
+             @3x.png 3x,
+             @4x.png 4x"
+             sizes="100px">
+
+
+/* flex １ */
+
+header {
+  justify-content: space-between;  /* 左右均等分布 */
+}
+
+ul {
+  align-items: center;  /* 上下中央揃え */
+}
+
+/* ボックスを上下左右中央に配置 １ */
+.main {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	height: 400px;
+}
+.main section {
+	width: 250px;
+}
+
+/* ボックスを上下左右中央に配置 ２ */
+div{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	width: 任意の値;
+	height: 任意の値;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+【transform の種類】
+移動 	transform: translate(20px,20px) 	(右、下)に20px移動
+回転 	transform: rotate(45deg) 	(45度)時計回りに回転
+傾斜 	skew(0,170deg) 	(横、縦)に傾斜
+縮尺 	transform: scale(1.2) 	(横、縦)に拡大
+遠近 	transform: perspective(200) 	数値が小さいほど遠近感が強くなる
+基点 	transform-origin: 100% 100%; 	左上からの位置
+描写 	transform-style:flat;
+裏面 	backface-visibility: visible;
+backface-visibility: hidden; 	裏面の表示／非表示
+transform-style:preserve-3d; 	子要素を平らに表示するか子要素を立体に表示するか
+
+transition-duration 変化の時間
+transition-delay:0.8s;
+
+	transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+
+div{
+	transition:all 0.5s linear 0;
+	transition: プロパティ 時間 easing delay;
+}
+
+
+/* スマホ用　
+-----------------------------------------------------*/
+@media screen and (max-width: 480px){
+
+	/* box-sizing */
+	* {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+
+	/* 回転 */
+	div{
+		transform: rotate(45deg);
+		-moz-transform: rotate(45deg);
+		-webkit-transform: rotate(45deg);
+		-o-transform: rotate(45deg);
+		-ms-transform: rotate(45deg);
+	}
+	//縦向きの場合
+	@media screen and (orientation:portrait){
+	}
+	//横向きの場合
+	@media screen and (orientation:landscape){
+	}
+
+}
+
+Android 4.2の標準ブラウザでテキストが勝手に折り返される不具合
+→backgroundに何か指定する
+
+
+
+/* vw早見表 width375px基準
+------------------------------*/
+
+
+8px:2.145vw;
+9px:2.4vw;
+10px:2.67vw;
+11px:2.935vw;
+12px:3.2vw;
+13px:3.455vw;
+14px:3.735vw;
+15px:4vw;
+16px:4.27vw;
+17px:4.525vw;
+18px:4.8vw;
+19px:5.067vw
+20px:5.335vw;
+21px:5.603vw;
+22px:
+23px:
+24px:6.38vw
+25px:6.675vw;
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* さまざまなメールクライアントで利用可能なユニバーサルなHTMLの要素
+---------------------------------------------------*/
+
+a	b	br	div	font	h1	h2	h3	h4
+h5	h6	head	hr	img	label	li	ol	p
+span	strong	table	td	th	tr	u	ul	　
+
+/* さまざまなメールクライアントで利用可能なユニバーサルなHTMLの要素
+---------------------------------------------------*/
+background
+background-color
+border
+border-bottom
+border-bottom-color
+border-bottom-style
+border-bottom-width
+border-color
+border-left
+border-left-color
+border-left-style
+border-left-width
+border-right
+border-right-color
+border-right-style
+border-right-width
+border-style
+border-top
+border-top-color
+border-width
+vertical-align
+
+width
+height
+
+padding
+padding-bottom
+padding-left
+padding-right
+padding-top
+
+display
+
+font
+font-family
+font-size	font-style
+font-variant
+font-weight
+color
+table-layout
+text-align
+text-decoration
+text-indent
+text-transform
+
+letter-spacing
+line-height
+list-style-type
+
+
+/* Outlook対応
+------------------------------*/
+
+■
+
+mso-line-height-rule:exactly;
+mso-line-height-alt:00px;
+
